@@ -45,11 +45,15 @@
             p2 = _p2
         End Sub
 
-        Public Function GetNormal() As Vector3D
-            Dim p0Vector As New Vector3D()
-            Dim p1Vector As New Vector3D()
-            Dim p2Vector As New Vector3D()
-        End Function
+        Public Sub GetNormal(vList() As Point3D)
+            'Dim e0 As New Vector3D
+            'Dim e1 As New Vector3D
+
+            'e0 = vList(p0).ToVector.Minus(vList(p1).ToVector)
+            'e1 = vList(p1).ToVector.Minus(vList(p2).ToVector)
+            'TODO
+            pNormal = Nothing
+        End Sub
 
         Public Overrides Function ToString() As String
             Return idx.ToString + " (" + p0.ToString + ", " + p1.ToString + ", " + p2.ToString + ")"
@@ -71,12 +75,28 @@
             z = _z
         End Sub
 
+        Public Sub New(p As Point3D)
+            Me.x = p.x
+            Me.y = p.y
+            Me.z = p.z
+        End Sub
+
         Public Function DotProduct(v As Vector3D) As Double
             Return (Me.x * v.x + Me.y * v.y + Me.z * v.z)
         End Function
 
         Public Function GetMagnitude() As Double
             Return Math.Sqrt(DotProduct(Me))
+        End Function
+
+        Public Function Minus(v As Vector3D) As Vector3D
+            Dim vOut As New Vector3D
+
+            vOut.x = v.x - Me.x
+            vOut.y = v.y - Me.y
+            vOut.z = v.z - Me.z
+
+            Return vOut
         End Function
 
         Public Function CrossProduct(v As Vector3D) As Vector3D
