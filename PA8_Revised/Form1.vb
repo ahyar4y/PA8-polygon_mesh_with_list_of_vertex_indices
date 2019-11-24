@@ -4,7 +4,7 @@
     Dim vList() As Point3D
     Dim vIndex As Integer
     Dim pIndex As Integer
-
+    Dim rMatrix(3, 3) As Double
     Dim sCenterX, sCenterY As Integer
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -29,13 +29,54 @@
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        ListBox1.Items.Add(AddPolygon(pIndex, CheckedListBox1.CheckedItems(0).idx, CheckedListBox1.CheckedItems(1).idx, CheckedListBox1.CheckedItems(2).idx))
-        'Console.WriteLine(CheckedListBox1.CheckedItems.Count)
+        AddVertex(vList, vIndex, CDbl(NumericUpDown4.Text), CDbl(NumericUpDown5.Text), CDbl(NumericUpDown6.Text))
+        AddVertex(vList, vIndex, CDbl(NumericUpDown7.Text), CDbl(NumericUpDown8.Text), CDbl(NumericUpDown9.Text))
+        AddVertex(vList, vIndex, CDbl(NumericUpDown10.Text), CDbl(NumericUpDown11.Text), CDbl(NumericUpDown12.Text))
+
+        CheckedListBox1.Items.Add(vList(vIndex - 2))
+        CheckedListBox1.Items.Add(vList(vIndex - 1))
+        CheckedListBox1.Items.Add(vList(vIndex))
+        ListBox1.Items.Add((AddPolygon(pIndex, vList(vIndex - 2).idx, vList(vIndex - 1).idx, vList(vIndex).idx)))
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Dim idxTemp(2) As Integer
+
+        For i = 0 To CheckedListBox1.CheckedItems.Count - 1
+            idxTemp(i) = CheckedListBox1.CheckedItems(i).idx
+        Next
+
+        ListBox1.Items.Add(AddPolygon(pIndex, idxTemp(0), idxTemp(1), idxTemp(2)))
+        'Console.WriteLine(CheckedListBox1.CheckedItems.Count)
+    End Sub
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        Dim dx As Integer = CInt(NumericUpDown13.Text)
+        Dim dy As Integer = CInt(NumericUpDown14.Text)
+        Dim dz As Integer = CInt(NumericUpDown15.Text)
+        Dim isRotated(vIndex) As Boolean
+
+        For i = 0 To vIndex
+            isRotated(i) = False
+        Next
+
+        SetMatrixRow(rMatrix, 0, Math.Cos(dy * Math.PI / 180) * Math.Cos(dz * Math.PI / 180), Math.Cos(dy * Math.PI / 180) * Math.Sin(dz * Math.PI / 180), -Math.Sin(dy * Math.PI / 180), 0)
+        SetMatrixRow(rMatrix, 1, Math.Sin(dx * Math.PI / 180) * Math.Sin(dy * Math.PI / 180) * Math.Cos(dz * Math.PI / 180) + Math.Cos(dx * Math.PI / 180) * -Math.Sin(dz * Math.PI / 180), Math.Sin(dx * Math.PI / 180) * Math.Sin(dy * Math.PI / 180) * Math.Sin(dz * Math.PI / 180) + Math.Cos(dx * Math.PI / 180) * Math.Cos(dz * Math.PI / 180), Math.Sin(dx * Math.PI / 180) * Math.Cos(dy * Math.PI / 180), 0)
+        SetMatrixRow(rMatrix, 2, Math.Cos(dx * Math.PI / 180) * Math.Sin(dy * Math.PI / 180) * Math.Cos(dz * Math.PI / 180) + -Math.Sin(dx * Math.PI / 180) * -Math.Sin(dz * Math.PI / 180), Math.Cos(dx * Math.PI / 180) * Math.Sin(dy * Math.PI / 180) * Math.Sin(dz * Math.PI / 180) + -Math.Sin(dx * Math.PI / 180) * Math.Cos(dz * Math.PI / 180), Math.Cos(dx * Math.PI / 180) * Math.Cos(dy * Math.PI / 180), 0)
+        SetMatrixRow(rMatrix, 3, 0, 0, 0, 1)
+
+        For i = 0 To ListBox1.Items.Count - 1
+            RotateObj(vList, ListBox1.Items(i).p0, rMatrix, isRotated)
+            RotateObj(vList, ListBox1.Items(i).p1, rMatrix, isRotated)
+            RotateObj(vList, ListBox1.Items(i).p2, rMatrix, isRotated)
+        Next
+
+        DrawMesh(img, sCenterX, sCenterY, ListBox1.Items, vList, vIndex, imgColor)
+    End Sub
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
         If ListBox1.Items.Count <> 0 Then
-            DrawMesh(img, vList, vIndex, imgColor)
+            DrawMesh(img, sCenterX, sCenterY, ListBox1.Items, vList, vIndex, imgColor)
         End If
     End Sub
 End Class

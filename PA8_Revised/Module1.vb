@@ -122,6 +122,25 @@
         End Function
     End Class
 
+    Sub SetMatrixRow(ByRef mtx(,) As Double, idx As Integer, a As Double, b As Double, c As Double, d As Double)
+        mtx(idx, 0) = a
+        mtx(idx, 1) = b
+        mtx(idx, 2) = c
+        mtx(idx, 3) = d
+    End Sub
+
+    Sub RotateObj(vlist() As Point3D, _idx As Integer, mtx(,) As Double, ByRef isrotated() As Boolean)
+        Dim temp As New Point3D
+
+        If Not isrotated(_idx) Then
+            temp.x = vlist(_idx).x * mtx(0, 0) + vlist(_idx).y * mtx(1, 0) + vlist(_idx).z * mtx(2, 0)
+            temp.y = vlist(_idx).x * mtx(0, 1) + vlist(_idx).y * mtx(1, 1) + vlist(_idx).z * mtx(2, 1)
+            temp.z = vlist(_idx).x * mtx(0, 2) + vlist(_idx).y * mtx(1, 2) + vlist(_idx).z * mtx(2, 2)
+            isrotated(_idx) = True
+            vlist(_idx) = temp
+        End If
+    End Sub
+
     Sub AddVertex(ByRef vList() As Point3D, ByRef _idx As Integer, _x As Double, _y As Double, _z As Double)
         _idx += 1
         ReDim Preserve vList(_idx)
@@ -133,9 +152,13 @@
         Return New Polygon3D(_idx, _p0, _p1, _p2)
     End Function
 
-    Sub DrawMesh(img As Graphics, ByRef vlist() As Point3D, _idx As Integer, _color As Color)
+    Sub DrawMesh(img As Graphics, cX As Integer, cY As Integer, ByRef lBox As Object, ByRef vlist() As Point3D, _idx As Integer, _color As Color)
         img.Clear(Color.White)
 
-
+        For i = 0 To lBox.Count - 1
+            img.DrawLine(New Pen(_color), CInt(vlist(lBox(i).p0).x) + cX, -CInt(vlist(lBox(i).p0).y) + cY, CInt(vlist(lBox(i).p1).x) + cX, -CInt(vlist(lBox(i).p1).y) + cY)
+            img.DrawLine(New Pen(_color), CInt(vlist(lBox(i).p1).x) + cX, -CInt(vlist(lBox(i).p1).y) + cY, CInt(vlist(lBox(i).p2).x) + cX, -CInt(vlist(lBox(i).p2).y) + cY)
+            img.DrawLine(New Pen(_color), CInt(vlist(lBox(i).p2).x) + cX, -CInt(vlist(lBox(i).p2).y) + cY, CInt(vlist(lBox(i).p0).x) + cX, -CInt(vlist(lBox(i).p0).y) + cY)
+        Next
     End Sub
 End Module
