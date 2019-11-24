@@ -12,8 +12,8 @@
         imgColor = Color.Black
         sCenterX = PictureBox1.Width / 2
         sCenterY = PictureBox1.Height / 2
-        vIndex = -1
-        pIndex = -1
+        vIndex = 0
+        pIndex = 0
     End Sub
 
     Private Sub PictureBox1_MouseMove(sender As Object, e As MouseEventArgs) Handles PictureBox1.MouseMove
@@ -40,14 +40,15 @@
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        Dim idxTemp(2) As Integer
+        Dim p As New Polygon3D
 
         For i = 0 To CheckedListBox1.CheckedItems.Count - 1
-            idxTemp(i) = CheckedListBox1.CheckedItems(i).idx
+            p.Add(CheckedListBox1.CheckedItems(i).idx)
         Next
 
-        ListBox1.Items.Add(AddPolygon(pIndex, idxTemp(0), idxTemp(1), idxTemp(2)))
-        'Console.WriteLine(CheckedListBox1.CheckedItems.Count)
+        pIndex += 1
+        p.pIndex = pIndex
+        ListBox1.Items.Add(p)
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
@@ -78,5 +79,13 @@
         If ListBox1.Items.Count <> 0 Then
             DrawMesh(img, sCenterX, sCenterY, ListBox1.Items, vList, vIndex, imgColor)
         End If
+    End Sub
+
+    Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
+        'For i = 0 To 
+    End Sub
+
+    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+
     End Sub
 End Class
