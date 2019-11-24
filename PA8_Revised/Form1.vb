@@ -116,7 +116,7 @@
     End Sub
 
     Private Sub ListBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox2.SelectedIndexChanged
-        If ListBox2.SelectedIndex <> -1 Then
+        If ListBox2.SelectedIndex > 0 Then
             NumericUpDown16.Text = vList(ListBox2.SelectedItem.idx).x
             NumericUpDown17.Text = vList(ListBox2.SelectedItem.idx).y
             NumericUpDown18.Text = vList(ListBox2.SelectedItem.idx).z
