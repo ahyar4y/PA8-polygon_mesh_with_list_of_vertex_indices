@@ -12,7 +12,7 @@
         imgColor = Color.Black
         sCenterX = PictureBox1.Width / 2
         sCenterY = PictureBox1.Height / 2
-        vIndex = 0
+        vIndex = -1
         pIndex = 0
     End Sub
 
@@ -36,19 +36,34 @@
         CheckedListBox1.Items.Add(vList(vIndex - 2))
         CheckedListBox1.Items.Add(vList(vIndex - 1))
         CheckedListBox1.Items.Add(vList(vIndex))
-        ListBox1.Items.Add((AddPolygon(pIndex, vList(vIndex - 2).idx, vList(vIndex - 1).idx, vList(vIndex).idx)))
-    End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         Dim p As New Polygon3D
 
-        For i = 0 To CheckedListBox1.CheckedItems.Count - 1
-            p.Add(CheckedListBox1.CheckedItems(i).idx)
+        For i = vIndex - 2 To vIndex
+            p.Add(vList(i).idx)
+            CheckedListBox1.SetItemChecked(i, True)
         Next
 
         pIndex += 1
         p.pIndex = pIndex
         ListBox1.Items.Add(p)
+        ListBox1.SelectedIndex = 0
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        If ListBox1.Items.Count <> 0 Then
+            Dim p As New Polygon3D
+            Dim _idx As Integer = ListBox1.SelectedIndex
+
+            For i = 0 To CheckedListBox1.CheckedItems.Count - 1
+                p.Add(CheckedListBox1.CheckedItems(i).idx)
+            Next
+
+            p.pIndex = pIndex
+            ListBox1.Items.Remove(ListBox1.SelectedItem)
+            ListBox1.Items.Insert(_idx, p)
+            ListBox1.SelectedIndex = 0
+        End If
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
@@ -72,32 +87,127 @@
             Next
         Next
 
-        DrawMesh(img, sCenterX, sCenterY, ListBox1.Items, vList, vIndex, imgColor)
+        DrawMesh(img, sCenterX, sCenterY, ListBox1.Items, vList, vIndex, imgColor, CheckBox1.Checked)
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
         If ListBox1.Items.Count <> 0 Then
-            DrawMesh(img, sCenterX, sCenterY, ListBox1.Items, vList, vIndex, imgColor)
+            DrawMesh(img, sCenterX, sCenterY, ListBox1.Items, vList, vIndex, imgColor, CheckBox1.Checked)
         End If
     End Sub
 
     Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
         ListBox2.Items.Clear()
-        For i = 0 To ListBox1.SelectedItem.vCount
-            ListBox2.Items.Add(vList(ListBox1.SelectedItem.vIndex(i)))
-        Next
+
+        If ListBox1.Items.Count <> 0 Then
+            ComboBox1.Enabled = True
+            ComboBox2.Enabled = True
+        Else
+            ComboBox1.Enabled = False
+            ComboBox2.Enabled = False
+        End If
+
+        If ListBox1.SelectedIndex <> -1 Then
+            For i = 0 To ListBox1.SelectedItem.vCount
+                ListBox2.Items.Add(vList(ListBox1.SelectedItem.vIndex(i)))
+            Next
+            ListBox2.SelectedIndex = 0
+        End If
     End Sub
 
     Private Sub ListBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox2.SelectedIndexChanged
+        If ListBox2.SelectedIndex <> -1 Then
+            NumericUpDown16.Text = vList(ListBox2.SelectedItem.idx).x
+            NumericUpDown17.Text = vList(ListBox2.SelectedItem.idx).y
+            NumericUpDown18.Text = vList(ListBox2.SelectedItem.idx).z
 
+        End If
     End Sub
 
-    'Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
-    '    If ListBox2.Items.Count <> 0 And ListBox2.Items.Count > 3 Then
-    '        ListBox2.Items.Remove(ListBox2.SelectedItem)
-    '        ListBox1.SelectedItem.
+    Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+        ListBox1.Items.Remove(ListBox1.SelectedItem)
+        If ListBox1.Items.Count <> 0 Then
+            ListBox1.SelectedIndex = 0
+        End If
+    End Sub
 
-    '        DrawMesh(img, sCenterX, sCenterY, ListBox1.Items, vList, vIndex, imgColor)
-    '    End If
-    'End Sub
+    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+        vList(ListBox2.SelectedItem.idx).x = CInt(NumericUpDown16.Text)
+        vList(ListBox2.SelectedItem.idx).y = CInt(NumericUpDown17.Text)
+        vList(ListBox2.SelectedItem.idx).z = CInt(NumericUpDown18.Text)
+
+        DrawMesh(img, sCenterX, sCenterY, ListBox1.Items, vList, vIndex, imgColor, CheckBox1.Checked)
+    End Sub
+
+    Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
+        img.Clear(Color.White)
+    End Sub
+
+    Private Sub CheckedListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CheckedListBox1.SelectedIndexChanged
+        'If CheckedListBox1.Items.Count <> 0 Then
+        '    NumericUpDown16.Text = vList(CheckedListBox1.CheckedItems(0).idx).x
+        '    NumericUpDown17.Text = vList(CheckedListBox1.CheckedItems(0).idx).y
+        '    NumericUpDown18.Text = vList(CheckedListBox1.CheckedItems(0).idx).z
+        'End If
+
+        'If ListBox2.SelectedIndex <> -1 Then
+        '    NumericUpDown16.Text = vList(ListBox2.SelectedItem.idx).x
+        '    NumericUpDown17.Text = vList(ListBox2.SelectedItem.idx).y
+        '    NumericUpDown18.Text = vList(ListBox2.SelectedItem.idx).z
+
+        'End If
+    End Sub
+
+    Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
+        Dim isScaled(vIndex) As Boolean
+
+        For i = 0 To vIndex
+            isScaled(i) = False
+        Next
+
+        For i = 0 To ListBox1.Items.Count - 1
+            For j = 0 To ListBox1.Items(i).vCount
+                ScaleObj(vList, ListBox1.Items(i).vIndex(j), 2, isScaled)
+            Next
+        Next
+
+        DrawMesh(img, sCenterX, sCenterY, ListBox1.Items, vList, vIndex, imgColor, CheckBox1.Checked)
+    End Sub
+
+    Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click
+        Dim isScaled(vIndex) As Boolean
+
+        For i = 0 To vIndex
+            isScaled(i) = False
+        Next
+
+        For i = 0 To ListBox1.Items.Count - 1
+            For j = 0 To ListBox1.Items(i).vCount
+                ScaleObj(vList, ListBox1.Items(i).vIndex(j), 0.5, isScaled)
+            Next
+        Next
+
+        DrawMesh(img, sCenterX, sCenterY, ListBox1.Items, vList, vIndex, imgColor, CheckBox1.Checked)
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
+        DrawMesh(img, sCenterX, sCenterY, ListBox1.Items, vList, vIndex, imgColor, CheckBox1.Checked)
+    End Sub
+
+    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+        If ListBox2.Items.Count > 3 Then
+            Dim idx As Integer = ListBox2.SelectedItem.idx
+            ListBox2.Items.Remove(ListBox2.SelectedItem)
+
+            If idx < ListBox1.SelectedItem.vCount Then
+                For i = idx To ListBox1.SelectedItem.vCount - 1
+                    ListBox1.SelectedItem.vIndex(i) = ListBox1.SelectedItem.vIndex(i + 1)
+                Next
+            End If
+            ListBox1.SelectedItem.vCount -= 1
+
+            DrawMesh(img, sCenterX, sCenterY, ListBox1.Items, vList, vIndex, imgColor, CheckBox1.Checked)
+            ListBox2.SelectedIndex = 0
+        End If
+    End Sub
 End Class

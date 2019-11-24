@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form1
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Form1
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -60,6 +60,7 @@ Partial Class Form1
         Me.NumericUpDown4 = New System.Windows.Forms.NumericUpDown()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
@@ -81,7 +82,8 @@ Partial Class Form1
         Me.Label21 = New System.Windows.Forms.Label()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.Button9 = New System.Windows.Forms.Button()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.Button10 = New System.Windows.Forms.Button()
+        Me.Button11 = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -119,7 +121,8 @@ Partial Class Form1
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(1101, 580)
+        Me.Label1.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.Label1.Location = New System.Drawing.Point(16, 575)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(17, 13)
         Me.Label1.TabIndex = 1
@@ -128,7 +131,8 @@ Partial Class Form1
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(1101, 597)
+        Me.Label2.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.Label2.Location = New System.Drawing.Point(16, 590)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(17, 13)
         Me.Label2.TabIndex = 2
@@ -136,6 +140,7 @@ Partial Class Form1
         '
         'CheckedListBox1
         '
+        Me.CheckedListBox1.CheckOnClick = True
         Me.CheckedListBox1.FormattingEnabled = True
         Me.CheckedListBox1.Location = New System.Drawing.Point(826, 186)
         Me.CheckedListBox1.Name = "CheckedListBox1"
@@ -253,16 +258,16 @@ Partial Class Form1
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(152, 26)
         Me.Button2.TabIndex = 8
-        Me.Button2.Text = "Add to Polygon"
+        Me.Button2.Text = "Add Polygon"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(984, 299)
+        Me.Button3.Location = New System.Drawing.Point(984, 183)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(94, 26)
         Me.Button3.TabIndex = 9
-        Me.Button3.Text = "Add to Mesh"
+        Me.Button3.Text = "Add to Polygon"
         Me.Button3.UseVisualStyleBackColor = True
         '
         'GroupBox2
@@ -295,6 +300,7 @@ Partial Class Form1
         '
         'ComboBox2
         '
+        Me.ComboBox2.Enabled = False
         Me.ComboBox2.FormattingEnabled = True
         Me.ComboBox2.Location = New System.Drawing.Point(194, 65)
         Me.ComboBox2.Name = "ComboBox2"
@@ -303,6 +309,7 @@ Partial Class Form1
         '
         'ComboBox1
         '
+        Me.ComboBox1.Enabled = False
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Location = New System.Drawing.Point(194, 34)
         Me.ComboBox1.Name = "ComboBox1"
@@ -457,7 +464,7 @@ Partial Class Form1
         '
         Me.Button4.Location = New System.Drawing.Point(1098, 470)
         Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(133, 45)
+        Me.Button4.Size = New System.Drawing.Size(127, 40)
         Me.Button4.TabIndex = 11
         Me.Button4.Text = "Draw"
         Me.Button4.UseVisualStyleBackColor = True
@@ -478,6 +485,16 @@ Partial Class Form1
         Me.GroupBox3.TabIndex = 12
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Rotate"
+        '
+        'CheckBox2
+        '
+        Me.CheckBox2.AutoSize = True
+        Me.CheckBox2.Location = New System.Drawing.Point(71, 97)
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.Size = New System.Drawing.Size(50, 17)
+        Me.CheckBox2.TabIndex = 17
+        Me.CheckBox2.Text = "Loop"
+        Me.CheckBox2.UseVisualStyleBackColor = True
         '
         'Button5
         '
@@ -518,6 +535,7 @@ Partial Class Form1
         'NumericUpDown15
         '
         Me.NumericUpDown15.Location = New System.Drawing.Point(20, 94)
+        Me.NumericUpDown15.Maximum = New Decimal(New Integer() {360, 0, 0, 0})
         Me.NumericUpDown15.Name = "NumericUpDown15"
         Me.NumericUpDown15.Size = New System.Drawing.Size(41, 20)
         Me.NumericUpDown15.TabIndex = 2
@@ -525,6 +543,7 @@ Partial Class Form1
         'NumericUpDown14
         '
         Me.NumericUpDown14.Location = New System.Drawing.Point(20, 59)
+        Me.NumericUpDown14.Maximum = New Decimal(New Integer() {360, 0, 0, 0})
         Me.NumericUpDown14.Name = "NumericUpDown14"
         Me.NumericUpDown14.Size = New System.Drawing.Size(41, 20)
         Me.NumericUpDown14.TabIndex = 1
@@ -532,13 +551,14 @@ Partial Class Form1
         'NumericUpDown13
         '
         Me.NumericUpDown13.Location = New System.Drawing.Point(20, 24)
+        Me.NumericUpDown13.Maximum = New Decimal(New Integer() {360, 0, 0, 0})
         Me.NumericUpDown13.Name = "NumericUpDown13"
         Me.NumericUpDown13.Size = New System.Drawing.Size(41, 20)
         Me.NumericUpDown13.TabIndex = 0
         '
         'Button6
         '
-        Me.Button6.Location = New System.Drawing.Point(984, 584)
+        Me.Button6.Location = New System.Drawing.Point(984, 486)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(94, 23)
         Me.Button6.TabIndex = 13
@@ -547,7 +567,7 @@ Partial Class Form1
         '
         'Button7
         '
-        Me.Button7.Location = New System.Drawing.Point(984, 443)
+        Me.Button7.Location = New System.Drawing.Point(984, 345)
         Me.Button7.Name = "Button7"
         Me.Button7.Size = New System.Drawing.Size(94, 23)
         Me.Button7.TabIndex = 14
@@ -591,6 +611,8 @@ Partial Class Form1
         'NumericUpDown18
         '
         Me.NumericUpDown18.Location = New System.Drawing.Point(20, 92)
+        Me.NumericUpDown18.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
+        Me.NumericUpDown18.Minimum = New Decimal(New Integer() {1000, 0, 0, -2147483648})
         Me.NumericUpDown18.Name = "NumericUpDown18"
         Me.NumericUpDown18.Size = New System.Drawing.Size(41, 20)
         Me.NumericUpDown18.TabIndex = 2
@@ -607,6 +629,8 @@ Partial Class Form1
         'NumericUpDown17
         '
         Me.NumericUpDown17.Location = New System.Drawing.Point(20, 56)
+        Me.NumericUpDown17.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
+        Me.NumericUpDown17.Minimum = New Decimal(New Integer() {1000, 0, 0, -2147483648})
         Me.NumericUpDown17.Name = "NumericUpDown17"
         Me.NumericUpDown17.Size = New System.Drawing.Size(41, 20)
         Me.NumericUpDown17.TabIndex = 1
@@ -623,6 +647,8 @@ Partial Class Form1
         'NumericUpDown16
         '
         Me.NumericUpDown16.Location = New System.Drawing.Point(20, 19)
+        Me.NumericUpDown16.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
+        Me.NumericUpDown16.Minimum = New Decimal(New Integer() {1000, 0, 0, -2147483648})
         Me.NumericUpDown16.Name = "NumericUpDown16"
         Me.NumericUpDown16.Size = New System.Drawing.Size(41, 20)
         Me.NumericUpDown16.TabIndex = 0
@@ -647,7 +673,7 @@ Partial Class Form1
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(1104, 521)
+        Me.CheckBox1.Location = New System.Drawing.Point(1104, 552)
         Me.CheckBox1.Name = "CheckBox1"
         Me.CheckBox1.Size = New System.Drawing.Size(108, 17)
         Me.CheckBox1.TabIndex = 18
@@ -656,28 +682,38 @@ Partial Class Form1
         '
         'Button9
         '
-        Me.Button9.Location = New System.Drawing.Point(1098, 541)
+        Me.Button9.Location = New System.Drawing.Point(1098, 573)
         Me.Button9.Name = "Button9"
-        Me.Button9.Size = New System.Drawing.Size(133, 37)
+        Me.Button9.Size = New System.Drawing.Size(127, 32)
         Me.Button9.TabIndex = 19
         Me.Button9.Text = "Clear"
         Me.Button9.UseVisualStyleBackColor = True
         '
-        'CheckBox2
+        'Button10
         '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Location = New System.Drawing.Point(71, 97)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(50, 17)
-        Me.CheckBox2.TabIndex = 17
-        Me.CheckBox2.Text = "Loop"
-        Me.CheckBox2.UseVisualStyleBackColor = True
+        Me.Button10.Location = New System.Drawing.Point(1098, 516)
+        Me.Button10.Name = "Button10"
+        Me.Button10.Size = New System.Drawing.Size(60, 22)
+        Me.Button10.TabIndex = 20
+        Me.Button10.Text = "Zoom in"
+        Me.Button10.UseVisualStyleBackColor = True
+        '
+        'Button11
+        '
+        Me.Button11.Location = New System.Drawing.Point(1165, 516)
+        Me.Button11.Name = "Button11"
+        Me.Button11.Size = New System.Drawing.Size(60, 22)
+        Me.Button11.TabIndex = 21
+        Me.Button11.Text = "Zoom out"
+        Me.Button11.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1240, 617)
+        Me.Controls.Add(Me.Button11)
+        Me.Controls.Add(Me.Button10)
         Me.Controls.Add(Me.Button9)
         Me.Controls.Add(Me.CheckBox1)
         Me.Controls.Add(Me.Label21)
@@ -791,4 +827,6 @@ Partial Class Form1
     Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents CheckBox2 As CheckBox
     Friend WithEvents Button9 As Button
+    Friend WithEvents Button10 As Button
+    Friend WithEvents Button11 As Button
 End Class
