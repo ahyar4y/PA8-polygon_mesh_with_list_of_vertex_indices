@@ -60,7 +60,7 @@
         End Sub
 
         Public Overrides Function ToString() As String
-            Return "Polygon " + (pIndex + 1).ToString
+            Return "Polygon " + (pIndex).ToString
         End Function
     End Class
 
