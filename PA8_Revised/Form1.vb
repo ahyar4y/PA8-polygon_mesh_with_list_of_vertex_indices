@@ -67,9 +67,9 @@
         SetMatrixRow(rMatrix, 3, 0, 0, 0, 1)
 
         For i = 0 To ListBox1.Items.Count - 1
-            RotateObj(vList, ListBox1.Items(i).p0, rMatrix, isRotated)
-            RotateObj(vList, ListBox1.Items(i).p1, rMatrix, isRotated)
-            RotateObj(vList, ListBox1.Items(i).p2, rMatrix, isRotated)
+            For j = 0 To ListBox1.Items(i).vCount
+                RotateObj(vList, ListBox1.Items(i).vIndex(j), rMatrix, isRotated)
+            Next
         Next
 
         DrawMesh(img, sCenterX, sCenterY, ListBox1.Items, vList, vIndex, imgColor)
@@ -82,10 +82,22 @@
     End Sub
 
     Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
-        'For i = 0 To 
+        ListBox2.Items.Clear()
+        For i = 0 To ListBox1.SelectedItem.vCount
+            ListBox2.Items.Add(vList(ListBox1.SelectedItem.vIndex(i)))
+        Next
     End Sub
 
-    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+    Private Sub ListBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox2.SelectedIndexChanged
 
     End Sub
+
+    'Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+    '    If ListBox2.Items.Count <> 0 And ListBox2.Items.Count > 3 Then
+    '        ListBox2.Items.Remove(ListBox2.SelectedItem)
+    '        ListBox1.SelectedItem.
+
+    '        DrawMesh(img, sCenterX, sCenterY, ListBox1.Items, vList, vIndex, imgColor)
+    '    End If
+    'End Sub
 End Class

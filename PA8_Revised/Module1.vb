@@ -159,10 +159,10 @@
         img.Clear(Color.White)
 
         For i = 0 To lBox.Count - 1
-            For j = 0 To lBox.vcount - 1
-                img.DrawLine(New Pen(_color), CInt(vlist(lBox.vIndex(j)).x) + cX, -CInt(vlist(lBox.vIndex(j)).y) + cY, CInt(vlist(lBox.vIndex(j + 1)).x) + cX, -CInt(vlist(lBox.vIndex(j + 1)).y) + cY)
+            For j = 0 To lBox(i).vcount - 1
+                img.DrawLine(New Pen(_color), CInt(vlist(lBox(i).vIndex(j)).x) + cX, -CInt(vlist(lBox(i).vIndex(j)).y) + cY, CInt(vlist(lBox(i).vIndex(j + 1)).x) + cX, -CInt(vlist(lBox(i).vIndex(j + 1)).y) + cY)
             Next
-            img.DrawLine(New Pen(_color), CInt(vlist(lBox.vIndex(lBox.vcount)).x) + cX, -CInt(vlist(lBox.vIndex(lBox.vcount)).y) + cY, CInt(vlist(lBox.vIndex(0)).x) + cX, -CInt(vlist(lBox.vIndex(0)).y) + cY)
+            img.DrawLine(New Pen(_color), CInt(vlist(lBox(i).vIndex(lBox(i).vcount)).x) + cX, -CInt(vlist(lBox(i).vIndex(lBox(i).vcount)).y) + cY, CInt(vlist(lBox(i).vIndex(0)).x) + cX, -CInt(vlist(lBox(i).vIndex(0)).y) + cY)
         Next
     End Sub
 End Module
